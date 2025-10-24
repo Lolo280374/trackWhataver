@@ -6,14 +6,19 @@
     <title>trackWhataver</title>
     <link rel="stylesheet" href="style.css"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div class="mainsearch">
         <h1 class="mainsearch-title">trackWhataver!!</h1>
         <form class="mainsearch-form">
             <input type="text" placeholder="tracking number, shipping ID, ..." class="mainsearch-input"/>
-            <button type="submit" class="mainsearch-searchbtn">find!</button>
+            <button type="submit" class="mainsearch-searchbtn"><i data-lucide="package-search"></i></button>
         </form>
+        <div class="invalid" id="invalid">
+            <i data-lucide="circle-x"></i><p>parcel not found! tracking link may be invalid, or expired...</p>
+        </div>
         <p class="mainsearch-footer">track every courrier... on the same place! thanks for being here!</p>
     </div>
 </body>

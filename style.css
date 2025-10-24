@@ -38,7 +38,8 @@ body {
 }
 
 .mainsearch-searchbtn {
-  padding: 10px 15px;
+  display: flex;
+  padding: 9px 15px;
   border: none;
   border-radius: 0 6px 6px 0;
   background-color: #3a3a3a;
@@ -49,6 +50,22 @@ body {
 
 .mainsearch-searchbtn:hover {
   background-color: #4d4d4d;
+}
+
+.invalid {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #8b3a3a;
+  border-radius: 6px;
+  color: #ffcccc;
+}
+
+.invalid p {
+  margin: 0;
+  font-size: 0.95rem;
 }
 
 .mainsearch-footer {
