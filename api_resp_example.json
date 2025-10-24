@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "code": 200,
+    "message": "string"
+  },
+  "data": {
+    "id": "string",
+    "tracking_number": "string",
+    "courier_code": "string",
+    "order_number": "string",
+    "order_date": "string",
+    "created_at": "string",
+    "update_at": "string",
+    "delivery_status": "string",
+    "archived": "tracking",
+    "updating": true,
+    "destination_country": "string",
+    "destination_state": "string",
+    "destination_city": "string",
+    "origin_country": "string",
+    "origin_state": "string",
+    "origin_city": "string",
+    "tracking_postal_code": "string",
+    "tracking_ship_date": "string",
+    "tracking_destination_country": "string",
+    "tracking_origin_country": "string",
+    "tracking_key": "string",
+    "tracking_courier_account": "string",
+    "customer_name": "string",
+    "customer_email": "string",
+    "customer_sms": "string",
+    "recipient_postcode": "string",
+    "order_id": "string",
+    "title": "string",
+    "logistics_channel": "string",
+    "note": "string",
+    "label": "string",
+    "signed_by": "string",
+    "service_code": "string",
+    "weight": "string",
+    "weight_kg": "string",
+    "product_type": "string",
+    "pieces": "string",
+    "dimension": "string",
+    "previously": "string",
+    "destination_track_number": "string",
+    "exchange_number": "string",
+    "scheduled_delivery_date": "string",
+    "scheduled_address": "string",
+    "substatus": "string",
+    "status_info": "string",
+    "latest_event": "string",
+    "latest_checkpoint_time": "string",
+    "transit_time": 0,
+    "origin_info": {
+      "courier_code": "string",
+      "courier_phone": "string",
+      "weblink": "string",
+      "reference_number": "string",
+      "milestone_date": {
+        "inforeceived_date": "string",
+        "pickup_date": "string",
+        "outfordelivery_date": "string",
+        "delivery_date": "string",
+        "returning_date": "string",
+        "returned_date": "string"
+      },
+      "pickup_date (Legacy)": "string",
+      "departed_airport_date (Legacy)": "string",
+      "arrived_abroad_date (Legacy)": "string",
+      "customs_received_date (Legacy)": "string",
+      "arrived_destination_date (Legacy)": "string",
+      "trackinfo": [
+        {
+          "checkpoint_date": "string",
+          "checkpoint_delivery_status": "string",
+          "checkpoint_delivery_substatus": "string",
+          "tracking_detail": "string",
+          "location": "string",
+          "country_iso2": "string",
+          "state": "string",
+          "city": "string",
+          "zip": "string",
+          "raw_status": "string"
+        }
+      ]
+    },
+    "destination_info": {
+      "courier_code": "string",
+      "courier_phone": "string",
+      "weblink": "string",
+      "reference_number": "string",
+      "milestone_date": {
+        "inforeceived_date": "string",
+        "pickup_date": "string",
+        "outfordelivery_date": "string",
+        "delivery_date": "string",
+        "returning_date": "string",
+        "returned_date": "string"
+      },
+      "pickup_date (Legacy)": "string",
+      "departed_airport_date (Legacy)": "string",
+      "arrived_abroad_date (Legacy)": "string",
+      "customs_received_date (Legacy)": "string",
+      "arrived_destination_date (Legacy)": "string",
+      "trackinfo": [
+        {
+          "checkpoint_date": "string",
+          "checkpoint_delivery_status": "string",
+          "checkpoint_delivery_substatus": "string",
+          "tracking_detail": "string",
+          "location": "string",
+          "country_iso2": "string",
+          "state": "string",
+          "city": "string",
+          "zip": "string",
+          "raw_status": "string"
+        }
+      ]
+    }
+  }
+}
