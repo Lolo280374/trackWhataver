@@ -10,14 +10,34 @@ body {
   height: 100vh;
 }
 
+body.tracking-ui {
+  align-items: flex-start;
+}
+
 .mainsearch {
   text-align: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+body:not(.tracking-view) .mainsearch {
+  max-width: 500px;
+  padding: 0;
 }
 
 .mainsearch-title {
   width: auto;
   margin: 0 auto 4vh auto;
   font-weight: 800;
+}
+
+body.tracking-ui .mainsearch-title {
+  display: none;
+}
+
+body.tracking-ui .mainsearch {
+  margin-top: 20px;
 }
 
 .mainsearch-form {
@@ -53,7 +73,7 @@ body {
 }
 
 .invalid {
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 10px;
   margin-top: 15px;
@@ -72,4 +92,25 @@ body {
   margin-top: 20px;
   font-size: 0.9rem;
   color: #ccc;
+}
+
+body.tracking-ui .mainsearch-footer {
+  display: none;
+}
+
+.tracking-info {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.tracking-ui .tracking-info {
+  display: block;
 }
