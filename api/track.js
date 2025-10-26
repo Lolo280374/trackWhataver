@@ -35,7 +35,7 @@ export default async function handler(request, response) {
         if (!registerResponse.ok) {
             const errorData = await registerResponse.json().catch(() => ({}));
             const errorMessage = errorData?.data?.errors?.[0]?.message || 'failed to register that package';
-            const alreadyRegisteredError = "already registered, no need to do this twice";
+            const alreadyRegisteredError = "has been registered, don't need to repeat registration.";
             if (!errorMessage.includes(alreadyRegisteredError)) {
                  console.error(`registration failed: ${registerResponse.status}: ${errorMessage}`);
                 throw new Error(errorMessage);
@@ -48,7 +48,7 @@ export default async function handler(request, response) {
             }
              if (registerData.data.rejected.length > 0) {
                 const rejectionMessage = registerData.data.rejected[0].error.message;
-                const alreadyRegisteredError = "has already been registered, no need to do it twice";
+                const alreadyRegisteredError = "has been registered, don't need to repeat registration.";
                 if (!rejectionMessage.includes(alreadyRegisteredError)) {
                     throw new Error(`registration rejected: ${rejectionMessage}`);
                 }
