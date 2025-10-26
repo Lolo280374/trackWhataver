@@ -69,8 +69,14 @@ async function loadAPIData(trackingNumber) {
             throw new Error(`API error: ${jsonResponse.message}`);
         }
         if (jsonResponse.data.rejected.length > 0) {
-            const errorMsg = jsonResponse.data.rejected[0].error.message;
-            throw new Error(errorMsg);
+            const rejection = jsonResponse.data.rejected[0];
+            const errorCode = rejection.error.code;
+            const errorMessage = rejection.error.message;
+
+            if (errorCode === -18019908) {
+                throw new Error("ran out of API credits. please use the 'demo' query to keep testing the tracking UI stuff...");
+            }
+            throw new Error(errorMessage);
         }
         if (jsonResponse.data.accepted.length === 0) {
             throw new Error("tracking number is invalid or data is not defined.");
