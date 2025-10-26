@@ -4,7 +4,7 @@ const invalidMessage = document.getElementById('invalid');
 const trackingInfo = document.getElementById('tracking-info');
 const allList = document.getElementById('tracking-alllist');
 const expandButton = document.getElementById('expand-button');
-const learnmoreButton = document.getElementById('learnmore-button');
+const callcourierButton = document.getElementById('callcourier-button');
 const courierButton = document.getElementById('courier-button');
 
 lucide.createIcons();
@@ -101,7 +101,7 @@ function updateUI(data) {
         }
         const currentStatusString = trackInfo.latest_status?.status;
         const trackInfoEvents = primaryProviderInfo?.events || [];
-        const trackingLink = primaryProviderInfo?.provider.homepage;
+        const phoneNumber = primaryProviderInfo?.provider.tel;
         const weblink = primaryProviderInfo?.provider.homepage;
 
         document.getElementById('courier-name').innerText = courierName || 'Unknown';
@@ -167,11 +167,12 @@ function updateUI(data) {
             expandButton.style.display = 'none';
         }
 
-        if (trackingLink) {
-            learnmoreButton.href = trackingLink;
-            learnmoreButton.style.display = 'flex';
+        if (phoneNumber) {
+            const telLink = `tel:${phoneNumber.replace(/[\s(\)\-\+]/g, '')}`;
+            callcourierButton.href = telLink;
+            callcourierButton.style.display = 'flex';
         } else {
-            learnmoreButton.style.display = 'none';
+            callcourierButton.style.display = 'none';
         }
         if (weblink) {
             courierButton.href = weblink;
@@ -220,8 +221,8 @@ function clearTrackingData() {
     expandButton.classList.remove('expanded');
     expandButton.innerHTML = `<span>Expand all</span><i data-lucide="chevron-down"></i>`;
     expandButton.style.display = 'none';
-    learnmoreButton.href = "#";
-    learnmoreButton.style.display = 'none';
+    callcourierButton.href = "#";
+    callcourierButton.style.display = 'none';
     courierButton.href = "#";
     courierButton.style.display = 'none';
     invalidMessage.querySelector('p').innerText = "parcel not found! tracking link may be invalid, or expired...";
