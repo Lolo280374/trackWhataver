@@ -1,6 +1,6 @@
 export default async function handler(request, response) {
     if (request.method !== 'POST') {
-        return response.status(405).json({ error: 'Method Not Allowed' });
+        return response.status(405).json({ error: 'method not allowed. (prob a broken .env)' });
     }
 
     let trackingNumber = '';
@@ -23,7 +23,7 @@ export default async function handler(request, response) {
     const getInfoEndpoint = "https://api.17track.net/track/v2.4/gettrackinfo";
 
     try {
-        console.log(`Registering tracking number: ${trackingNumber}`);
+        console.log(`attempting login for ${trackingNumber}`);
         const registerResponse = await fetch(registerEndpoint, {
             method: 'POST',
             headers: {
@@ -32,19 +32,32 @@ export default async function handler(request, response) {
             },
             body: JSON.stringify([ { "number": trackingNumber } ])
         });
-
         if (!registerResponse.ok) {
             const errorData = await registerResponse.json().catch(() => ({}));
-            throw new Error(errorData?.data?.errors?.[0]?.message || 'failed to register that package');
+            const errorMessage = errorData?.data?.errors?.[0]?.message || 'failed to register that package';
+            const alreadyRegisteredError = "already registered, no need to do this twice";
+            if (!errorMessage.includes(alreadyRegisteredError)) {
+                 console.error(`registration failed: ${registerResponse.status}: ${errorMessage}`);
+                throw new Error(errorMessage);
+            }
+             console.log(`${trackingNumber} is already registered, proceeding...`);
+        } else {
+            const registerData = await registerResponse.json();
+            if (registerData.code !== 0) {
+                 throw new Error(`registration failed: ${registerData.message || 'unknown register error'}`);
+            }
+             if (registerData.data.rejected.length > 0) {
+                const rejectionMessage = registerData.data.rejected[0].error.message;
+                const alreadyRegisteredError = "has already been registered, no need to do it twice";
+                if (!rejectionMessage.includes(alreadyRegisteredError)) {
+                    throw new Error(`registration rejected: ${rejectionMessage}`);
+                }
+                 console.log(`${trackingNumber} is already registered, proceeding...`);
+            } else {
+                 console.log(`success! - ${trackingNumber}`);
+            }
         }
-
-        const registerData = await registerResponse.json();
-        if (registerData.code !== 0) {
-             throw new Error(`failed to register: ${registerData.message || 'unknown register error'}`);
-        }
-        if (registerData.data.rejected.length > 0) {
-            throw new Error(`registration rejected: ${registerData.data.rejected[0].error.message}`);
-        }
+        console.log(`getting tracking data for: ${trackingNumber}`);
         const getInfoResponse = await fetch(getInfoEndpoint, {
             method: 'POST',
             headers: {
@@ -67,10 +80,12 @@ export default async function handler(request, response) {
             throw new Error(`rejection fetching tracking data: ${infoData.data.rejected[0].error.message}`);
         }
         if (infoData.data.accepted.length === 0) {
-            throw new Error("the tracking data isn't yet avalaible. you should try again in a few seconds...");
+            throw new Error("the tracking data isn't yet available. you should try again in a few seconds...");
         }
         return response.status(200).json(infoData);
+
     } catch (error) {
+         console.error("error during tracking process:", error);
         return response.status(500).json({ error: error.message || 'something bad happened.' });
     }
 }
