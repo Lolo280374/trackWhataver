@@ -17,8 +17,8 @@ searchForm.addEventListener('submit', function(event) {
         invalidMessage.style.display = 'flex';
         document.body.classList.remove('tracking-ui');
         clearTrackingData();
-    } else if (query.toLowerCase() === 'lp') {
-        loadTrackingData('lp');
+    } else if (query.toLowerCase() === 'demo') {
+        loadTrackingData('demo');
     } else if (query) {
         invalidMessage.style.display = 'none';
         document.body.classList.remove('tracking-ui');
@@ -39,7 +39,7 @@ expandButton.addEventListener('click', function() {
 
 async function loadTrackingData(query) {
     try {
-        const response = await fetch('./mdrl_resp.json');
+        const response = await fetch('./demo_response.json');
         if (!response.ok) {
             throw new Error('no file');
         }
