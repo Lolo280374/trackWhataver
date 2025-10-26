@@ -21,7 +21,38 @@
         </div>
         <p class="mainsearch-footer">track every courrier... on the same place! thanks for being here!</p>
         <div class="tracking-info" id="tracking-info">
-            <p>hi</p>
+            <div class="tracking-header">
+                <div class="tracking-header-el">
+                    <span id="courier-name" class="courier-name"></span>
+                </div>
+                <div class="tracking-header-el">
+                    <span id="transit-time" class="transit-time"></span>
+                </div>
+                <div class="tracking-header-el">
+                    <span id="origin-dest" class="origin-dest"></span>
+                </div>
+            </div>
+            <div class="tracking-progress">
+                <h2 class="progress-title">latest status update</h2>
+                <div class="progress-el">
+                    <div class="step" id="step-inforeceived">
+                        <div class="step-icon"><i data-lucide="receipt-text"></i></div>
+                        <div class="progress-line"></div>
+                    </div>
+                    <div class="step" id="step-transit">
+                        <div class="step-icon"><i data-lucide="truck"></i></div>
+                        <div class="progress-line"></div>
+                    </div>
+                    <div class="step" id="step-pickup">
+                        <div class="step-icon"><i data-lucide="warehouse"></i></div>
+                        <div class="progress-line"></div>
+                    </div>
+                    <div class="step" id="step-delivered">
+                        <div class="step-icon"><i data-lucide="mail-check"></i></div>
+                    </div>
+                </div>
+                <p class="latest-step" id="latest-step-desc"></p>
+            </div>
         </div>
     </div>
 </body>

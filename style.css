@@ -1,8 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&display=swap');
 
+:root {
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --color-active: #f75f1c;
+  --color-inactive: #3a3a3a;
+  --bg-dark: #0d0d0d;
+  --bg-medium: #1a1a1a;
+  --bg-light: #2a2a2a;
+  --error-bg: #8b3a3a;
+  --error-text: #ffcccc;
+}
+
 body {
-  background-color: #0d0d0d;
-  color: white;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(background.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-primary);
   font-family: "Baloo Bhai 2", sans-serif;
   display: flex;
   justify-content: center;
@@ -51,9 +66,9 @@ body.tracking-ui .mainsearch {
   padding: 10px 15px;
   border: none;
   border-radius: 6px 0 0 6px;
-  background-color: #2a2a2a;
+  background-color: var(--bg-light);
   font-family: "Baloo Bhai 2", sans-serif;
-  color: white;
+  color: var(--text-primary);
   outline: none;
 }
 
@@ -62,9 +77,9 @@ body.tracking-ui .mainsearch {
   padding: 9px 15px;
   border: none;
   border-radius: 0 6px 6px 0;
-  background-color: #3a3a3a;
+  background-color: var(--color-inactive);
   font-family: "Baloo Bhai 2", sans-serif;
-  color: white;
+  color: var(--text-primary);
   cursor: pointer;
 }
 
@@ -78,9 +93,9 @@ body.tracking-ui .mainsearch {
   gap: 10px;
   margin-top: 15px;
   padding: 12px 20px;
-  background-color: #8b3a3a;
+  background-color: var(--error-bg);
   border-radius: 6px;
-  color: #ffcccc;
+  color: var(--error-text);
 }
 
 .invalid p {
@@ -91,7 +106,7 @@ body.tracking-ui .mainsearch {
 .mainsearch-footer {
   margin-top: 20px;
   font-size: 0.9rem;
-  color: #ccc;
+  color: var(--text-secondary);
 }
 
 body.tracking-ui .mainsearch-footer {
@@ -102,7 +117,7 @@ body.tracking-ui .mainsearch-footer {
   display: none;
   margin-top: 20px;
   padding: 20px;
-  background-color: #1a1a1a;
+  background-color: var(--bg-medium);
   border-radius: 8px;
   text-align: left;
   width: 100%;
@@ -113,4 +128,106 @@ body.tracking-ui .mainsearch-footer {
 
 body.tracking-ui .tracking-info {
   display: block;
+}
+
+.tracking-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.tracking-header-el {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.courier-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.transit-time {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.origin-dest {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.tracking-progress {
+  width: 100%;
+}
+
+.progress-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  margin: 0 0 25px 0;
+}
+
+.progress-el {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  color: var(--color-inactive);
+}
+
+.step:last-child {
+  flex: 0;
+}
+
+.step-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-inactive);
+  border-radius: 50%;
+  background-color: var(--bg-medium);
+}
+
+.progress-line {
+  height: 3px;
+  background-color: var(--color-inactive);
+  flex: 1;
+  margin: 0 10px;
+}
+
+.step.active {
+  color: var(--color-active);
+}
+
+.step.active .step-icon {
+  border-color: var(--color-active);
+  background-color: var(--color-active);
+  color: var(--bg-medium);
+}
+
+.step.active .progress-line {
+  background-color: var(--color-active);
+}
+
+.latest-step {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-left: 5px;
 }
