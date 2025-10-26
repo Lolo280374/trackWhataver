@@ -12,17 +12,16 @@ lucide.createIcons();
 searchForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const query = searchInput.value.trim();
+    clearTrackingData();
+    invalidMessage.style.display = 'none';
+    document.body.classList.remove('tracking-ui');
 
     if (query.toLowerCase() === 'invalid') {
         invalidMessage.style.display = 'flex';
-        document.body.classList.remove('tracking-ui');
-        clearTrackingData();
     } else if (query.toLowerCase() === 'demo') {
-        loadTrackingData('demo');
+        loadLocalData('./demo_response.json');
     } else if (query) {
-        invalidMessage.style.display = 'none';
-        document.body.classList.remove('tracking-ui');
-        clearTrackingData();
+        loadAPIData(query);
     }
 });
 
@@ -37,97 +36,163 @@ expandButton.addEventListener('click', function() {
     lucide.createIcons();
 });
 
-async function loadTrackingData(query) {
+async function loadLocalData(filename) {
     try {
-        const response = await fetch('./demo_response.json');
+        const response = await fetch(filename);
         if (!response.ok) {
-            throw new Error('no file');
+            throw new Error(`couldn't load demo file located at ${filename}`);
         }
         const jsonData = await response.json();
-        const data = jsonData.data;
+        updateUI(jsonData.data.accepted[0]);
+    } catch (error) {
+        handleError(error);
+    }
+}
 
-        document.getElementById('courier-name').innerText = data.courier_code;
-        document.getElementById('transit-time').innerText = `${data.transit_time} days elapsed`;
+async function loadAPIData(trackingNumber) {
+    console.log('querying 17TRACK for', trackingNumber);
+    try {
+        const response = await fetch('/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ number: trackingNumber })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ error: response.statusText }));
+            throw new Error(errorData.error || `server error: ${response.status}`);
+        }
+
+        const jsonResponse = await response.json();
+
+        if (jsonResponse.code !== 0) {
+            throw new Error(`API error: ${jsonResponse.message}`);
+        }
+        if (jsonResponse.data.rejected.length > 0) {
+            const errorMsg = jsonResponse.data.rejected[0].error.message;
+            throw new Error(errorMsg);
+        }
+        if (jsonResponse.data.accepted.length === 0) {
+            throw new Error("tracking number is invalid or data is not defined.");
+        }
+        updateUI(jsonResponse.data.accepted[0]);
+    } catch (error) {
+        handleError(error);
+    }
+}
+
+function updateUI(data) {
+    try {
+        const trackInfo = data.track_info;
+        let primaryProviderInfo = null;
+        if (trackInfo.tracking && trackInfo.tracking.providers) {
+            primaryProviderInfo = trackInfo.tracking.providers.find(p => p.events && p.events.length > 0) || trackInfo.tracking.providers[0];
+        }
+
+        const courierName = primaryProviderInfo ? primaryProviderInfo.provider.name : data.carrier;
+        const transitDays = trackInfo.time_metrics?.days_of_transit;
+        const originCountry = trackInfo.shipping_info?.shipper_address?.country;
+        const destCountry = trackInfo.shipping_info?.recipient_address?.country;
+        let latestEventText = null;
+        let latestEventDateStr = null;
+        if (trackInfo.latest_event) {
+            latestEventText = trackInfo.latest_event.description;
+            latestEventDateStr = trackInfo.latest_event.time_iso;
+        }
+        const currentStatusString = trackInfo.latest_status?.status;
+        const trackInfoEvents = primaryProviderInfo?.events || [];
+        const trackingLink = primaryProviderInfo?.provider.homepage;
+        const weblink = primaryProviderInfo?.provider.homepage;
+
+        document.getElementById('courier-name').innerText = courierName || 'Unknown';
+        document.getElementById('transit-time').innerText = transitDays !== null ? `${transitDays} days elapsed` : 'calculating...';
+
         const originDestSpan = document.getElementById('origin-dest');
         const originDestContainer = originDestSpan.parentElement;
-        if (data.origin_country && data.destination_country) {
-            originDestSpan.innerHTML = `${data.origin_country} &rarr; ${data.destination_country}`;
+        if (originCountry && destCountry) {
+            originDestSpan.innerHTML = `${originCountry} &rarr; ${destCountry}`;
             originDestContainer.style.display = 'flex';
         } else {
             originDestSpan.innerHTML = '';
             originDestContainer.style.display = 'none';
         }
 
-        const latestEventText = data.latest_event.split(',')[0];
-        const eventDate = new Date(data.latest_checkpoint_time);
-        const month = eventDate.getMonth()+1;
-        const day = eventDate.getDate();
-        const formattedDate = (`${month}/${day}`);
-        document.getElementById('latest-step-desc').innerText = `${formattedDate} - ${latestEventText}`;
+        if (latestEventText && latestEventDateStr) {
+            const eventDate = new Date(latestEventDateStr);
+            const month = eventDate.getMonth()+1;
+            const day = eventDate.getDate();
+            const formattedDate = (`${month}/${day}`);
+            document.getElementById('latest-step-desc').innerText = `(${formattedDate}) - ${latestEventText}`;
+        } else {
+            document.getElementById('latest-step-desc').innerText = "no status update was provided.. :("
+        }
 
-        const statusLevel = { 'pending': 1, 'inforeceived': 1, 'transit': 2, 'pickup': 3, 'delivered': 4 };
-        const currentStatus = data.delivery_status;
-        const currentLevel = statusLevel[currentStatus] || 0;
+        const statusMap = { 'NotFound': 0, 'InfoReceived': 1, 'InTransit': 2, 'AvailableForPickup': 3, 'OutForDelivery': 3, 'Undelivered': 3, 'Delivered': 4, 'Expired': 0, 'Exception': 0 };
+        const currentLevel = statusMap[currentStatusString] || 0;
         const steps = ['step-inforeceived', 'step-transit', 'step-pickup', 'step-delivered'];
         steps.forEach((stepId, index) => {
             const stepElement = document.getElementById(stepId);
-            if (index+1 <= currentLevel) {
-                stepElement.classList.add('active');
+            if (stepElement) {
+                if (index + 1 <= currentLevel) {
+                    stepElement.classList.add('active');
+                } else {
+                    stepElement.classList.remove('active');
+                }
             }
         });
 
-        if (data.origin_info && data.origin_info.trackinfo) {
-            const trackInfo = data.origin_info.trackinfo;
+        if (trackInfoEvents && trackInfoEvents.length > 0) {
             let listHTML = '';
-            trackInfo.forEach(item => {
-                const itemDate = new Date(item.checkpoint_date);
+            const dateKey = 'time_iso';
+            const detailKey = 'description';
+            trackInfoEvents.forEach(item => {
+                const itemDate = new Date(item[dateKey]);
                 const dateStr = itemDate.toISOString().split('T')[0];
                 const timeStr = itemDate.toTimeString().split(' ')[0].substring(0, 8);
                 const formattedItemDate = `${dateStr} ${timeStr}`;
                 let details = '';
-                if (item.location && item.location.toLowerCase() !== 'null') {
-                    details = `${item.location} - ${item.tracking_detail}`;
-                } else {
-                    details = item.tracking_detail;
-                }
+                const detailText = item[detailKey] || '';
 
+                if (item.location && item.location.toLowerCase() !== 'null' && item.location.trim() !== '') {
+                    details = `${item.location} - ${detailText}`;
+                } else {
+                    details = detailText;
+                }
                 listHTML += `<li><span class="list-date">${formattedItemDate}</span><span class="list-details">${details}</span></li>`;
             });
-
             allList.innerHTML = listHTML;
-            if (trackInfo.length > 2) {
-                expandButton.style.display = 'flex';
-            } else {
-                expandButton.style.display = 'none';
-            }
+            expandButton.style.display = (trackInfoEvents.length > 2) ? 'flex' : 'none';
+        } else {
+            allList.innerHTML = `<li>the API didn't return any detailled information...</li>`;
+            expandButton.style.display = 'none';
         }
 
-        if (data.origin_info) {
-            if (data.origin_info.tracking_link) {
-                learnmoreButton.href = data.origin_info.tracking_link;
-                learnmoreButton.style.display = 'flex';
-            } else {
-                learnmoreButton.style.display = 'none';
-            }
-
-            if (data.origin_info.weblink) {
-                courierButton.href = data.origin_info.weblink;
-                courierButton.style.display = 'flex';
-            } else {
-                courierButton.style.display = 'none';
-            }
+        if (trackingLink) {
+            learnmoreButton.href = trackingLink;
+            learnmoreButton.style.display = 'flex';
         } else {
             learnmoreButton.style.display = 'none';
+        }
+        if (weblink) {
+            courierButton.href = weblink;
+            courierButton.style.display = 'flex';
+        } else {
             courierButton.style.display = 'none';
         }
 
         invalidMessage.style.display = 'none';
         document.body.classList.add('tracking-ui');
-    } catch (error) {
-        console.error('error loading tracking data:', error);
-        invalidMessage.style.display = 'flex';
-        document.body.classList.remove('tracking-ui');
+        lucide.createIcons();
+    } catch (uiError) {
+        handleError(new Error(`failed to display elements: ${uiError.message}`));
     }
+}
+
+function handleError(error) {
+    console.error('an error occured:', error);
+    invalidMessage.style.display = 'flex';
+    invalidMessage.querySelector('p').innerText = error.message || 'something bad happened :(';
+    document.body.classList.remove('tracking-ui');
 }
 
 function clearTrackingData() {
@@ -153,11 +218,12 @@ function clearTrackingData() {
     allList.innerHTML = '';
     allList.classList.remove('expanded');
     expandButton.classList.remove('expanded');
-    expandButton.querySelector('span').innerText = 'Expand all';
+    expandButton.innerHTML = `<span>Expand all</span><i data-lucide="chevron-down"></i>`;
     expandButton.style.display = 'none';
     learnmoreButton.href = "#";
     learnmoreButton.style.display = 'none';
     courierButton.href = "#";
     courierButton.style.display = 'none';
+    invalidMessage.querySelector('p').innerText = "parcel not found! tracking link may be invalid, or expired...";
     lucide.createIcons();
 }

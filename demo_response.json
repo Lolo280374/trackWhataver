@@ -1,152 +1,383 @@
 {
-"README": "this is an example type of response for siege demo users that wouldn't have an actual shipping number on hand to try, or either the API broke lol",
-"README2": "this is data taken from an actual response from french carrier 'La Poste', for my siege prep week parcel!! (with some data obv erased...)",
-  "meta": {
-    "code": 200,
-    "message": "Request response is successful"
-  },
+  "README": "this is an example type of response for siege demo users that wouldn't have an actual shipping number on hand to try, or either 17track broke lol",
+  "README2": "this is data taken from an actual response from a french carrier (La Poste), for my siege prep week parcel!! (with the sensitive data deleted obv...).",
+  "code": 0,
   "data": {
-    "id": "aaaaaeeeeoo6767plsgive5stars",
-    "tracking_number": "676767420FR",
-    "courier_code": "La Poste",
-    "order_number": "676767420FR",
-    "order_date": null,
-    "created_at": "2025-10-24T19:15:07+00:00",
-    "update_at": null,
-    "delivery_status": "pickup",
-    "archived": "tracking",
-    "updating": true,
-    "source": "API",
-    "destination_country": "FR",
-    "destination_state": null,
-    "destination_city": null,
-    "origin_country": "US",
-    "origin_state": null,
-    "origin_city": null,
-    "tracking_postal_code": null,
-    "tracking_ship_date": null,
-    "tracking_destination_country": null,
-    "tracking_origin_country": null,
-    "tracking_key": null,
-    "tracking_courier_account": null,
-    "customer_name": null,
-    "customer_email": null,
-    "customer_sms": null,
-    "recipient_postcode": null,
-    "order_id": null,
-    "title": null,
-    "logistics_channel": null,
-    "note": null,
-    "label": null,
-    "signed_by": null,
-    "service_code": null,
-    "weight": null,
-    "weight_kg": null,
-    "product_type": null,
-    "pieces": null,
-    "dimension": null,
-    "previously": null,
-    "destination_track_number": null,
-    "exchange_number": null,
-    "scheduled_delivery_date": null,
-    "scheduled_address": null,
-    "substatus": "pickup001",
-    "status_info": null,
-    "latest_event": "Your item is transiting through our logistics platforms to be delivered to you as quickly as possible.,FR,2025-10-23 14:52:21",
-    "latest_checkpoint_time": "2025-10-23T14:52:21+02:00",
-    "transit_time": 10,
-    "origin_info": {
-      "courier_code": "laposte",
-      "courier_phone": "00 33 810 821 821",
-      "weblink": "http://www.laposte.fr/",
-      "tracking_link": "https://www.laposte.fr/outils/suivre-vos-envois?code=here_youd_get_an_actual_shipping_number",
-      "reference_number": null,
-      "milestone_date": {
-        "inforeceived_date": null,
-        "pickup_date": "2025-10-14T19:43:00+02:00",
-        "outfordelivery_date": "2025-10-23T14:52:21+02:00",
-        "delivery_date": null,
-        "returning_date": null,
-        "returned_date": null
-      },
-      "pickup_date": null,
-      "departed_airport_date": null,
-      "arrived_abroad_date": null,
-      "customs_received_date": null,
-      "trackinfo": [
-        {
-          "checkpoint_date": "2025-10-23T14:52:21+02:00",
-          "checkpoint_delivery_status": "transit",
-          "checkpoint_delivery_substatus": "transit001",
-          "tracking_detail": "Your item is transiting through our logistics platforms to be delivered to you as quickly as possible.",
-          "location": "FR",
-          "country_iso2": "FR",
-          "state": null,
-          "city": null,
-          "zip": null,
-          "raw_status": null
+    "accepted": [
+      {
+        "number": "aaaaeeeoooo6767420plsgive5stars",
+        "carrier": 6051,
+        "param": null,
+        "tag": "",
+        "track_info": {
+          "shipping_info": {
+            "shipper_address": {
+              "country": "US",
+              "state": null,
+              "city": null,
+              "street": null,
+              "postal_code": null,
+              "coordinates": {
+                "longitude": null,
+                "latitude": null
+              }
+            },
+            "recipient_address": {
+              "country": "FR",
+              "state": null,
+              "city": null,
+              "street": null,
+              "postal_code": null,
+              "coordinates": {
+                "longitude": null,
+                "latitude": null
+              }
+            }
+          },
+          "latest_status": {
+            "status": "InTransit",
+            "sub_status": "InTransit_Other",
+            "sub_status_descr": null
+          },
+          "latest_event": {
+            "time_iso": "2025-10-23T14:52:21+02:00",
+            "time_utc": "2025-10-23T12:52:21Z",
+            "time_raw": {
+              "date": "2025-10-23",
+              "time": "14:52:21",
+              "timezone": "+02:00"
+            },
+            "description": "Your item is transiting through our logistics platforms to be delivered to you as quickly as possible.",
+            "location": "FR",
+            "stage": null,
+            "sub_status": "InTransit_Other",
+            "address": {
+              "country": "FR",
+              "state": null,
+              "city": null,
+              "street": null,
+              "postal_code": null,
+              "coordinates": {
+                "longitude": null,
+                "latitude": null
+              }
+            }
+          },
+          "time_metrics": {
+            "days_after_order": 13,
+            "days_of_transit": 11,
+            "days_of_transit_done": 0,
+            "days_after_last_update": 3,
+            "estimated_delivery_date": {
+              "source": null,
+              "from": null,
+              "to": null
+            }
+          },
+          "milestone": [
+            {
+              "key_stage": "InfoReceived",
+              "time_iso": "2025-10-14T19:43:00+02:00",
+              "time_utc": "2025-10-14T17:43:00Z",
+              "time_raw": {
+                "date": "2025-10-14",
+                "time": "19:43:00",
+                "timezone": "+02:00"
+              }
+            },
+            {
+              "key_stage": "PickedUp",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            },
+            {
+              "key_stage": "Departure",
+              "time_iso": "2025-10-16T23:03:09+02:00",
+              "time_utc": "2025-10-16T21:03:09Z",
+              "time_raw": {
+                "date": "2025-10-16",
+                "time": "23:03:09",
+                "timezone": "+02:00"
+              }
+            },
+            {
+              "key_stage": "Arrival",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            },
+            {
+              "key_stage": "AvailableForPickup",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            },
+            {
+              "key_stage": "OutForDelivery",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            },
+            {
+              "key_stage": "Delivered",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            },
+            {
+              "key_stage": "Returning",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            },
+            {
+              "key_stage": "Returned",
+              "time_iso": null,
+              "time_utc": null,
+              "time_raw": {
+                "date": null,
+                "time": null,
+                "timezone": null
+              }
+            }
+          ],
+          "misc_info": {
+            "risk_factor": 0,
+            "service_type": "Envoi international avec suivi",
+            "weight_raw": null,
+            "weight_kg": null,
+            "pieces": null,
+            "dimensions": null,
+            "customer_number": null,
+            "reference_number": null,
+            "local_number": null,
+            "local_provider": null,
+            "local_key": 0
+          },
+          "tracking": {
+            "providers_hash": 509888396,
+            "providers": [
+              {
+                "provider": {
+                  "key": 21051,
+                  "name": "USPS",
+                  "alias": "USPS",
+                  "tel": "+1 (800) 275-8777",
+                  "homepage": "https://www.usps.com/",
+                  "country": "US"
+                },
+                "provider_lang": null,
+                "service_type": null,
+                "latest_sync_status": "Success",
+                "latest_sync_time": "2025-10-26T17:25:38Z",
+                "events_hash": 0,
+                "provider_tips": null,
+                "events": []
+              },
+              {
+                "provider": {
+                  "key": 6051,
+                  "name": "La Poste (Colissimo)",
+                  "alias": "La Poste (Colissimo)",
+                  "tel": "+33 0 810 821 821",
+                  "homepage": "http://www.laposte.fr/",
+                  "country": "FR"
+                },
+                "provider_lang": null,
+                "service_type": "Envoi international avec suivi",
+                "latest_sync_status": "Success",
+                "latest_sync_time": "2025-10-26T17:25:38Z",
+                "events_hash": 1964407949,
+                "provider_tips": null,
+                "events": [
+                  {
+                    "time_iso": "2025-10-23T14:52:21+02:00",
+                    "time_utc": "2025-10-23T12:52:21Z",
+                    "time_raw": {
+                      "date": "2025-10-23",
+                      "time": "14:52:21",
+                      "timezone": "+02:00"
+                    },
+                    "description": "Your item is transiting through our logistics platforms to be delivered to you as quickly as possible.",
+                    "location": "FR",
+                    "stage": null,
+                    "sub_status": "InTransit_Other",
+                    "address": {
+                      "country": "FR",
+                      "state": null,
+                      "city": null,
+                      "street": null,
+                      "postal_code": null,
+                      "coordinates": {
+                        "longitude": null,
+                        "latitude": null
+                      }
+                    }
+                  },
+                  {
+                    "time_iso": "2025-10-22T11:20:17+02:00",
+                    "time_utc": "2025-10-22T09:20:17Z",
+                    "time_raw": {
+                      "date": "2025-10-22",
+                      "time": "11:20:17",
+                      "timezone": "+02:00"
+                    },
+                    "description": "Your item has cleared customs and will be delivered upon payment of customs duties and taxes.",
+                    "location": "FR",
+                    "stage": null,
+                    "sub_status": "InTransit_CustomsProcessing",
+                    "address": {
+                      "country": "FR",
+                      "state": null,
+                      "city": null,
+                      "street": null,
+                      "postal_code": null,
+                      "coordinates": {
+                        "longitude": null,
+                        "latitude": null
+                      }
+                    }
+                  },
+                  {
+                    "time_iso": "2025-10-22T10:26:36+02:00",
+                    "time_utc": "2025-10-22T08:26:36Z",
+                    "time_raw": {
+                      "date": "2025-10-22",
+                      "time": "10:26:36",
+                      "timezone": "+02:00"
+                    },
+                    "description": "Your item is being cleared through customs.",
+                    "location": "FR",
+                    "stage": null,
+                    "sub_status": "InTransit_CustomsRequiringInformation",
+                    "address": {
+                      "country": "FR",
+                      "state": null,
+                      "city": null,
+                      "street": null,
+                      "postal_code": null,
+                      "coordinates": {
+                        "longitude": null,
+                        "latitude": null
+                      }
+                    }
+                  },
+                  {
+                    "time_iso": "2025-10-16T23:03:09+02:00",
+                    "time_utc": "2025-10-16T21:03:09Z",
+                    "time_raw": {
+                      "date": "2025-10-16",
+                      "time": "23:03:09",
+                      "timezone": "+02:00"
+                    },
+                    "description": "Your item is ready to be forwarded from its foreign territory. It will be given to the carrier for forwarding.",
+                    "location": "US",
+                    "stage": "Departure",
+                    "sub_status": "InTransit_Departure",
+                    "address": {
+                      "country": "US",
+                      "state": null,
+                      "city": null,
+                      "street": null,
+                      "postal_code": null,
+                      "coordinates": {
+                        "longitude": null,
+                        "latitude": null
+                      }
+                    }
+                  },
+                  {
+                    "time_iso": "2025-10-16T11:03:00+02:00",
+                    "time_utc": "2025-10-16T09:03:00Z",
+                    "time_raw": {
+                      "date": "2025-10-16",
+                      "time": "11:03:00",
+                      "timezone": "+02:00"
+                    },
+                    "description": "Your item is ready to be forwarded from its shipping region. It will be given to the carrier for forwarding.",
+                    "location": "US",
+                    "stage": null,
+                    "sub_status": "InTransit_Other",
+                    "address": {
+                      "country": "US",
+                      "state": null,
+                      "city": null,
+                      "street": null,
+                      "postal_code": null,
+                      "coordinates": {
+                        "longitude": null,
+                        "latitude": null
+                      }
+                    }
+                  },
+                  {
+                    "time_iso": "2025-10-14T19:43:00+02:00",
+                    "time_utc": "2025-10-14T17:43:00Z",
+                    "time_raw": {
+                      "date": "2025-10-14",
+                      "time": "19:43:00",
+                      "timezone": "+02:00"
+                    },
+                    "description": "Your item has been dropped off by the sender with our postal partner in the country of origin.",
+                    "location": "US",
+                    "stage": "InfoReceived",
+                    "sub_status": "InfoReceived",
+                    "address": {
+                      "country": "US",
+                      "state": null,
+                      "city": null,
+                      "street": null,
+                      "postal_code": null,
+                      "coordinates": {
+                        "longitude": null,
+                        "latitude": null
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         },
-        {
-          "checkpoint_date": "2025-10-22T11:20:17+02:00",
-          "checkpoint_delivery_status": "transit",
-          "checkpoint_delivery_substatus": "transit001",
-          "tracking_detail": "Your item has cleared customs and will be delivered upon payment of customs duties and taxes.",
-          "location": "FR",
-          "country_iso2": "FR",
-          "state": null,
-          "city": null,
-          "zip": null,
-          "raw_status": null
-        },
-        {
-          "checkpoint_date": "2025-10-22T10:26:36+02:00",
-          "checkpoint_delivery_status": "pickup",
-          "checkpoint_delivery_substatus": "pickup001",
-          "tracking_detail": "Your item is being cleared through customs.",
-          "location": "FR",
-          "country_iso2": "FR",
-          "state": null,
-          "city": null,
-          "zip": null,
-          "raw_status": null
-        },
-        {
-          "checkpoint_date": "2025-10-16T23:03:09+02:00",
-          "checkpoint_delivery_status": "transit",
-          "checkpoint_delivery_substatus": "transit001",
-          "tracking_detail": "Your item is ready to be forwarded from its foreign territory. It will be given to the carrier for forwarding.",
-          "location": "US",
-          "country_iso2": "US",
-          "state": null,
-          "city": null,
-          "zip": null,
-          "raw_status": null
-        },
-        {
-          "checkpoint_date": "2025-10-16T11:03:00+02:00",
-          "checkpoint_delivery_status": "transit",
-          "checkpoint_delivery_substatus": "transit001",
-          "tracking_detail": "Your item is ready to be forwarded from its shipping region. It will be given to the carrier for forwarding.",
-          "location": "US",
-          "country_iso2": "US",
-          "state": null,
-          "city": null,
-          "zip": null,
-          "raw_status": null
-        },
-        {
-          "checkpoint_date": "2025-10-14T19:43:00+02:00",
-          "checkpoint_delivery_status": "transit",
-          "checkpoint_delivery_substatus": "transit001",
-          "tracking_detail": "Your item has been dropped off by the sender with our postal partner in the country of origin.",
-          "location": "US",
-          "country_iso2": "US",
-          "state": null,
-          "city": null,
-          "zip": null,
-          "raw_status": null
-        }
-      ]
-    }
+        "lang": null,
+        "destination_postal_code": null,
+        "origin_country": null,
+        "destination_country": null,
+        "destination_city": null,
+        "ship_date": null,
+        "shipper": null,
+        "consignee": null,
+        "phone_number_last_4": null,
+        "phone_number": null,
+        "cpf_or_cnpj": null,
+        "special_tracking_info": null
+      }
+    ],
+    "rejected": []
   }
 }
