@@ -13,9 +13,8 @@ track every courier... on the same place!! (essentially a fall-themed parcel tra
 screenshots
 </h1>
 
-<img width="1920" height="1080" alt="example shown with a demo parcel tracking ID" src="https://github.com/user-attachments/assets/90835017-e02c-432a-b319-7167fd726d1c">
-
-![and with an actual existential ID](https://github.com/user-attachments/assets/e0a953eb-7f20-4bab-8c47-dd8042986d92)
+![uqPhpad9fu](https://github.com/user-attachments/assets/f7e7d3f0-e9f3-4073-96af-af6418a9c0fc)
+<img width="1920" height="1080" alt="NKlIZ76NTm" src="https://github.com/user-attachments/assets/405c0548-51b4-47f6-9035-7a0617b36ee0" />
 
 <br>
 
