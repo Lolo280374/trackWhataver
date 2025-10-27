@@ -4,6 +4,7 @@
   --text-primary: #ffffff;
   --text-secondary: #aaaaaa;
   --color-active: #f75f1c;
+  --color-glow: rgba(232, 93, 4);
   --color-inactive: #3a3a3a;
   --bg-dark: #0d0d0d;
   --bg-medium: #1a1a1a;
@@ -45,6 +46,7 @@ body:not(.tracking-ui) .mainsearch {
   width: auto;
   margin: 0 auto 4vh auto;
   font-weight: 800;
+  text-shadow: 0 0 8px var(--color-glow);
 }
 
 body.tracking-ui .mainsearch-title {
@@ -221,6 +223,7 @@ body.tracking-ui .tracking-info {
   border-color: var(--color-active);
   background-color: var(--color-active);
   color: var(--bg-medium);
+  box-shadow: 0 0 10px var(--color-glow);
 }
 
 .step.active .progress-line {
@@ -280,6 +283,7 @@ body.tracking-ui .tracking-info {
 .tracking-alllist li:first-child::before {
   background-color: var(--color-active);
   border: 2px solid var(--color-active);
+  box-shadow: 0 0 8px var(--color-glow);
 }
 
 .tracking-alllist li:first-child::after {
