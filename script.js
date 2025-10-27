@@ -30,6 +30,8 @@ expandButton.addEventListener('click', function() {
     expandButton.classList.toggle('expanded');
     if (allList.classList.contains('expanded')) {
         expandButton.innerHTML = `<span>Show less</span><i data-lucide="chevron-up"></i>`;
+        sfx_wingflap.currentTime = 0;
+        sfx_wingflap.play();
     } else {
         expandButton.innerHTML = `<span>Expand all</span><i data-lucide="chevron-down"></i>`;
     }
