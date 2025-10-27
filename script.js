@@ -34,6 +34,8 @@ expandButton.addEventListener('click', function() {
         sfx_wingflap.play();
     } else {
         expandButton.innerHTML = `<span>Expand all</span><i data-lucide="chevron-down"></i>`;
+        sfx_wingflap.currentTime = 0;
+        sfx_wingflap.play();
     }
     lucide.createIcons();
 });
